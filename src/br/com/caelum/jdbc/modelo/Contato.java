@@ -1,13 +1,13 @@
 package br.com.caelum.jdbc.modelo;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Contato {
 	private long id;
 	private String nome;
 	private String email;
 	private String endereco;
-	private Date dataNascimento;
+	private Calendar dataNascimento;
 	
 	// get's & set's
 	public long getId() {
@@ -34,10 +34,10 @@ public class Contato {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	public Date getDataNascimento() {
+	public Calendar getDataNascimento() {
 		return dataNascimento;
 	}
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 }

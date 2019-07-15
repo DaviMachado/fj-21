@@ -26,8 +26,8 @@ public class ContatoDAO {
 	// Método para Adicionar o Contato
 	public void adiciona(Contato contato) {
 		String sql = "insert into contatos "+
-					"(nome,email,endereco)" +	// dataNascimento
-					"values (?,?,?)";	// falta um "?"
+					"(nome,email,endereco,dataNascimento)" +
+					"values (?,?,?,?)";
 		
 		try {
 			// prepared statement para inserção
@@ -37,7 +37,7 @@ public class ContatoDAO {
 			stmt.setString(1,contato.getNome());
 			stmt.setString(2,contato.getEmail());
 			stmt.setString(3,contato.getEndereco());
-//			stmt.setDate(4, new Date(contato.getDataNascimento().getTimeInMillis()));
+			stmt.setDate(4, new java.sql.Date(contato.getDataNascimento().getTimeInMillis()));
 			
 			// executa
 			stmt.execute();
@@ -81,17 +81,17 @@ public class ContatoDAO {
 	
 	// Método para alterar o Contato
 	public void altera (Contato contato) {
-		String sql = "update contatos set nome=?, email=?," +
-				"endereco=? where id=?";	// ", dataNascimento=?"
+		String sql = "update contatos set nome=?, email=?, endereco=?, " +
+				"dataNascimento=? where id=?";
 		
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, contato.getNome());
 			stmt.setString(2, contato.getEmail());
 			stmt.setString(3, contato.getEndereco());
-//			stmt.setDate(4, new Date(contato.getDataNascimento().getTimeInMillis()));
-			stmt.setLong(4, contato.getId());
-			stmt.executeQuery();
+			stmt.setDate(4, new java.sql.Date(contato.getDataNascimento().getTimeInMillis()));
+			stmt.setLong(5, contato.getId());
+			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -103,7 +103,7 @@ public class ContatoDAO {
 		try {
 			PreparedStatement stmt = connection.prepareStatement("delete from contatos where id=?");
 			stmt.setLong(1, contato.getId());
-			stmt.executeQuery();
+			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
